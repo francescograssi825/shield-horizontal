@@ -1,0 +1,22 @@
+tensorflow
+keras
+numpy
+pandas
+scikit-learn
+librosa
+soundfile
+h5py
+protobuf
+matplotlib
+tqdm
+audiomentations
+pytorch_lightning
+transformers
+accelerate>=0.26.0
+
+--pre
+--extra-index-url https://download.pytorch.org/whl/nightly/cu128
+torch
+torchvision
+torchaudio
+kaggle
