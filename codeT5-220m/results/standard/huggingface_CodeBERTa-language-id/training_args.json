@@ -1,0 +1,10 @@
+{
+    "strategy": "standard",
+    "k": 5,
+    "model": "huggingface/CodeBERTa-language-id",
+    "epochs": 3,
+    "batch_size": 8,
+    "max_length": 256,
+    "data_path": "../datasets/training_dataset.csv",
+    "output_dir": "results/standard/huggingface_CodeBERTa-language-id"
+}
