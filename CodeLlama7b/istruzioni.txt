@@ -1,0 +1,15 @@
+*istruzioni*
+Prima di eseguire il programma di allenamento...
+
+1. Creare un ambiente virtuale
+
+python3 -m venv venv
+source venv/bin/activate
+
+2. Installare le dipendenze
+
+pip install torch transformers datasets peft accelerate bitsandbytes
+
+3. Lanciare il programma di train.py (train_ubuntu.py e train_ubuntu_lora.py per il server del lab)
+	3.1 train_ubuntu_lora.py usa la tecnica lora per rendere efficiente la fase di addestramento del modello
+4. Lanciare il programma di test.py
