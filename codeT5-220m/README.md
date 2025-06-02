@@ -31,6 +31,8 @@ python run.py --strategy standard
 
 python run.py --strategy standard --model huggingface/CodeBERTa-language-id
 
+python run.py --strategy standard --model huggingface/CodeBERTa-language-id --max_length 512
+
 
 # K-Fold con 10 fold
 python run.py --strategy kfold --k 10

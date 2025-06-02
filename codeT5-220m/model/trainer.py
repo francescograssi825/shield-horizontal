@@ -4,14 +4,32 @@ from transformers import TrainingArguments, Trainer, DataCollatorWithPadding
 from utils.metrics import compute_metrics
 from utils.logger import log_gpu_info
 
-def configure_training(args):
+def configure_training(args, tokenizer):
+    """Configura gli argomenti per l'addestramento."""
+    # Batch size reale per GPU
+    per_device_train_batch_size = args.batch_size  # es. 8
+    # Batch size effettivo desiderato
+    effective_batch_size = 64
+    # Calcola il numero di step per accumulare i gradienti
+    accumulation_steps = effective_batch_size // per_device_train_batch_size
+
+     # Se output_dir non è definito o è vuoto, usa come default il nome del modello
+    if not hasattr(args, 'output_dir') or not args.output_dir:
+        # Ad esempio, da "Salesforce/codet5-small" prende "codet5-small" e aggiunge una slash
+        default_dir = "results/" + args.model.split('/')[-1] + '/'
+        args.output_dir = default_dir
+
+    # Se la directory non esiste, creala
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
+
     """Configure training arguments"""
     return TrainingArguments(
         output_dir=args.output_dir,                                  # Directory in cui salvare i checkpoint e gli output.
         num_train_epochs=args.epochs,                                # Numero totale di epoche per l'addestramento.
         per_device_train_batch_size=args.batch_size,                 # Dimensione del batch per dispositivo durante l'addestramento.
         per_device_eval_batch_size=args.batch_size,                  # Dimensione del batch per dispositivo durante la valutazione.
-        gradient_accumulation_steps=2,                               # Numero di step per accumulare i gradienti prima di aggiornare i pesi.
+        gradient_accumulation_steps=accumulation_steps,              # Numero di step per accumulare i gradienti prima di aggiornare i pesi.
         dataloader_pin_memory=True,                                  # Abilita il "pinning" della memoria nel dataloader per velocizzare il trasferimento dati.
         remove_unused_columns=False,                                 # Mantiene tutte le colonne dei dati, anche quelle non usate dal modello (utile per debugging o informazioni aggiuntive).
         fp16=torch.cuda.is_available(),                              # Abilita il training in precisione mista (16-bit) se è disponibile una GPU CUDA.

@@ -49,11 +49,14 @@ def run(args):
         results = train_model(trainer)
         
         # Save fold results
-        save_fold_results(fold+1, results, fold_dir)
+        print("result " + fold+1 + ": " + results)
+        save_fold_results('stratified_kfold',fold+1, results, fold_dir)
         fold_results.append(results)
     
     # Save aggregated results
-    save_results('stratified_kfold', aggregate_results(fold_results), base_output_dir)
+    ag = aggregate_results(fold_results)
+    print("result " + ": " + ag)
+    save_results('stratified_kfold', ag, base_output_dir)
     return fold_results
 
 def aggregate_results(fold_results):

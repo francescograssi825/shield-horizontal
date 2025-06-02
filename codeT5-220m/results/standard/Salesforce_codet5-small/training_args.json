@@ -1,10 +1,10 @@
 {
     "strategy": "standard",
     "k": 5,
-    "model": "huggingface/CodeBERTa-language-id",
+    "model": "Salesforce/codet5-small",
     "epochs": 3,
     "batch_size": 8,
     "max_length": 512,
     "data_path": "../datasets/training_dataset.csv",
-    "output_dir": "results/standard/huggingface_CodeBERTa-language-id"
+    "output_dir": "results/standard/Salesforce_codet5-small"
 }
