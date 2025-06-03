@@ -1,0 +1,2 @@
+strategy,fold,eval_loss,eval_accuracy,eval_f1,eval_precision,eval_recall,eval_runtime,eval_samples_per_second,eval_steps_per_second,epoch
+kfold,1,0.0032657168339937925,0.9993063583815028,0.999302649930265,0.9988382899628253,0.9997674418604651,14.5659,1187.705,148.497,3.0

@@ -1,0 +1,15 @@
+{
+    "strategy": "kfold",
+    "fold": 2,
+    "results": {
+        "eval_loss": 0.00372693850658834,
+        "eval_accuracy": 0.9993063583815028,
+        "eval_f1": 0.9993125572868927,
+        "eval_precision": 0.9991980753809142,
+        "eval_recall": 0.999427065429128,
+        "eval_runtime": 14.6417,
+        "eval_samples_per_second": 1181.554,
+        "eval_steps_per_second": 147.728,
+        "epoch": 3.0
+    }
+}
