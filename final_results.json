@@ -1,0 +1,14 @@
+{
+    "strategy": "standard",
+    "results": {
+        "eval_loss": 0.0053016082383692265,
+        "eval_accuracy": 0.9991907514450867,
+        "eval_f1": 0.9991953098057248,
+        "eval_precision": 0.9993101862497126,
+        "eval_recall": 0.999080459770115,
+        "eval_runtime": 14.5782,
+        "eval_samples_per_second": 1186.707,
+        "eval_steps_per_second": 148.373,
+        "epoch": 3.0
+    }
+}
