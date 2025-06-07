@@ -122,6 +122,13 @@ def kfold_training(n_splits, num_epochs, device):
 	torch.backends.cudnn.deterministic = True
 	torch.manual_seed(RANDOM_SEED)
 
+	tracker = EmissionsTracker(
+		project_name="BERT_KFold_Training",
+		output_dir=SAVE_FOLDER,
+		output_file="emissions_kfold.csv"
+	)
+	tracker.start()
+
 	# Initialize data handler with K-fold configuration
 	data_handler = DataHandler(DATASET_PATH, n_splits=n_splits)
 	data_handler.load_data()
@@ -174,6 +181,18 @@ def kfold_training(n_splits, num_epochs, device):
 
 	print(f"Cross-validation completed. Results collected for {len(fold_results)} folds.")
 
+	emissions = tracker.stop()
+	print(f"Total emissions for K-fold training: {emissions:.6f} kg CO2 equivalent")
+
+	# Add emissions data to all fold results
+	for result in fold_results:
+		result['emissions_kg_co2'] = emissions / len(fold_results)  # Distribute emissions across folds
+
+	# Calculate average results across all folds
+	avg_results = calculate_average_results(fold_results)
+	avg_results['emissions_kg_co2'] = emissions
+	fold_results.append(avg_results)
+
 	# Calculate average results across all folds
 	avg_results = calculate_average_results(fold_results)
 	fold_results.append(avg_results)
@@ -191,6 +210,15 @@ def stratified_kfold_training(n_splits, num_epochs, device):
 	# Set deterministic behavior for reproducible results
 	torch.backends.cudnn.deterministic = True
 	torch.manual_seed(RANDOM_SEED)
+
+	tracker = EmissionsTracker(
+		project_name="BERT_Stratified_KFold_Training",
+		output_dir=SAVE_FOLDER,
+		output_file="emissions_stratified_kfold.csv"
+	)
+	
+	
+	tracker.start()
 
 	# Initialize data handler with stratified K-fold configuration
 	data_handler = DataHandler(DATASET_PATH, n_splits=n_splits)
@@ -244,6 +272,17 @@ def stratified_kfold_training(n_splits, num_epochs, device):
 
 	print(f"Stratified Cross-validation completed. Results collected for {len(fold_results)} folds.")
 
+	emissions = tracker.stop()
+	print(f"Total emissions for K-fold training: {emissions:.6f} kg CO2 equivalent")
+
+	# Add emissions data to all fold results
+	for result in fold_results:
+		result['emissions_kg_co2'] = emissions / len(fold_results)  # Distribute emissions across folds
+
+	# Calculate average results across all folds
+	avg_results = calculate_average_results(fold_results)
+	avg_results['emissions_kg_co2'] = emissions
+	fold_results.append(avg_results)
 	# Calculate average results across all folds
 	avg_results = calculate_average_results(fold_results)
 	fold_results.append(avg_results)
