@@ -5,10 +5,10 @@ import os
 from datetime import datetime
 from custom_libs.data_handler import DataHandler
 from custom_libs.pii_data_loader import PIIDataLoader
-from custom_libs.bert_model_trainer import BertModelTrainer
+from custom_libs.graphCodeBert_model_trainer import GraphCodeBertModelTrainer
 
 ### Constants
-MODEL_NAME='google-bert/bert-base-uncased' # Model from Hugging Face
+MODEL_NAME='microsoft/graphcodebert-base' # Model from Hugging Face
 SAVE_FOLDER='results_test' # Path where to save the data
 
 ### Functions
@@ -50,7 +50,7 @@ def load_and_evaluate_model(device):
 	test_loader = data_loader.get_specific_dataloader(mode='test')
 
 	# Initialize the BERT model and load weights and optimizer state
-	model_trainer = BertModelTrainer(model_name=MODEL_NAME, save_folder=SAVE_FOLDER, device=device)
+	model_trainer = GraphCodeBertModelTrainer(model_name=MODEL_NAME, save_folder=SAVE_FOLDER, device=device)
 	model_trainer.load_model(MODEL_PATH, OPTIMIZER_PATH)
 
 	# Evaluate the model on the test set and print metrics
